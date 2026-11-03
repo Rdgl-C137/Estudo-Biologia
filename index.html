@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOLOGIA QUEST - 2º Ano Ensino Médio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --primary-dark-green: #27ae60;
+            --primary-blue: #3498db;
+            --primary-purple: #9b59b6;
+            --accent-yellow: #f1c40f;
+            --accent-orange: #e67e22;
+            --accent-red: #e74c3c;
+            --bg-light: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-dark: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-yellow);
+        }
+
+        .user-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary { background: var(--primary-green); color: white; }
+        .btn-blue { background: var(--primary-blue); color: white; }
+        .btn-purple { background: var(--primary-purple); color: white; }
+        .btn-warning { background: var(--accent-yellow); color: #333; }
+        .btn-secondary { background: #95a5a6; color: white; }
+
+        /* TELA INICIAL (HERO) */
+        .hero {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-illustration {
+            font-size: 5rem;
+            margin: 1.5rem 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .overall-progress-card {
+            background: #f1f8ff;
+            border: 2px solid #b6e0fe;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            height: 22px;
+            border-radius: 11px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--primary-green), #00b894);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* MENU DE CONTEÚDOS */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-top: 6px solid var(--primary-blue);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .module-card.m1 { border-color: var(--primary-purple); }
+        .module-card.m2 { border-color: var(--accent-orange); }
+        .module-card.m3 { border-color: var(--primary-green); }
+
+        .module-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .module-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .module-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* AULAS E CONTEÚDOS */
+        .lesson-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .lesson-header {
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lesson-step {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .highlight-box {
+            background: #eef9ff;
+            border-left: 5px solid var(--primary-blue);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.2rem 0;
+            font-size: 1rem;
+        }
+
+        .curiosity-box {
+            background: #fef9e7;
+            border-left: 5px solid var(--accent-yellow);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.2rem 0;
+        }
+
+        .keyword {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #856404;
+        }
+
+        /* QUIZ ETAPAS */
+        .quiz-box {
+            background: #fafafa;
+            border: 2px dashed #cbd5e0;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-blue);
+            background: #f0f8ff;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            display: none;
+        }
+
+        /* TABELAS E COMPARAÇÕES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background: #edf2f7;
+            color: #2d3748;
+        }
+
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        /* REVISÃO RÁPIDA */
+        .summary-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .summary-card h3 {
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        /* MEDALHAS DA CONQUISTA */
+        .badges-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .badge-item {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.4;
+            filter: grayscale(1);
+            transition: var(--transition);
+        }
+
+        .badge-item.unlocked {
+            opacity: 1;
+            filter: grayscale(0);
+            border-color: var(--accent-yellow);
+            background: #fffde7;
+        }
+
+        .badge-icon {
+            font-size: 2rem;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .hero-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo" onclick="nav('home')">
+            🧬 <span>BIOLOGIA QUEST</span>
+        </div>
+        <div class="user-stats">
+            <div class="stat-item" title="Pontos de Experiência">
+                ⚡ <span id="user-xp">0</span> XP
+            </div>
+            <div class="stat-item" title="Sequência de Dias/Acertos">
+                🔥 <span id="user-streak">0</span>
+            </div>
+            <div class="stat-item" title="Nível Atual">
+                🏆 Nível <span id="user-level">1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- 1. TELA INICIAL -->
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <div class="hero-illustration">🧫 🔬 🪱 🧬</div>
+                <h1>Aprenda Biologia de um jeito fácil!</h1>
+                <p>Prepare-se para as provas escolares do 2º Ano do Ensino Médio jogando, praticando e conquistando prêmios!</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="nav('modules')">🚀 COMEÇAR A APRENDER</button>
+                    <button class="btn btn-purple" onclick="startSimulado()">✍️ SIMULADO</button>
+                    <button class="btn btn-blue" onclick="nav('revision')">⚡ REVISÃO RÁPIDA</button>
+                </div>
+
+                <div class="overall-progress-card">
+                    <h4>Seu Progresso Geral na Disciplina</h4>
+                    <div class="progress-bar-container">
+                        <div id="main-progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                    <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><span id="progress-text">0</span>% Concluído</p>
+                </div>
+            </div>
+
+            <!-- CONQUISTAS -->
+            <div style="background: white; border-radius: var(--border-radius); padding: 1.5rem; box-shadow: var(--box-shadow);">
+                <h3>🏅 Suas Conquistas e Medalhas</h3>
+                <div class="badges-grid">
+                    <div id="badge-embrio" class="badge-item">
+                        <div class="badge-icon">🧬</div>
+                        <div>
+                            <strong>Mestre do Embrião</strong><br>
+                            <small>Conclua Desenvolvimento Embrionário</small>
+                        </div>
+                    </div>
+                    <div id="badge-platel" class="badge-item">
+                        <div class="badge-icon">🪱</div>
+                        <div>
+                            <strong>Caçador de Platelmintos</strong><br>
+                            <small>Conclua o Módulo de Platelmintos</small>
+                        </div>
+                    </div>
+                    <div id="badge-nemat" class="badge-item">
+                        <div class="badge-icon">🔬</div>
+                        <div>
+                            <strong>Expert em Nematódeos</strong><br>
+                            <small>Conclua o Módulo de Nematelmintos</small>
+                        </div>
+                    </div>
+                    <div id="badge-simulado" class="badge-item">
+                        <div class="badge-icon">🎓</div>
+                        <div>
+                            <strong>Pronto pra Prova</strong><br>
+                            <small>Tire 8.0 ou mais no Simulado</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. MENU DE CONTEÚDOS -->
+        <section id="modules" class="page-section">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Selecione um Módulo de Estudo</h2>
+            <div class="modules-grid">
+                <!-- Mód 1 -->
+                <div class="module-card m1">
+                    <div>
+                        <div class="icon">🧬</div>
+                        <h3>Desenvolvimento Embrionário</h3>
+                        <p>Fecundação, segmentação, mórula, blástula, gastrulação, folhetos embrionários, neurulação e organogênese.</p>
+                    </div>
+                    <button class="btn btn-purple" onclick="openModule(1)">Estudar Módulo</button>
+                </div>
+                <!-- Mód 2 -->
+                <div class="module-card m2">
+                    <div>
+                        <div class="icon">🪱</div>
+                        <h3>Platelmintos</h3>
+                        <p>Características dos vermes achatados, turbelários, teníase, cisticercose e esquistossomose.</p>
+                    </div>
+                    <button class="btn btn-warning" onclick="openModule(2)">Estudar Módulo</button>
+                </div>
+                <!-- Mód 3 -->
+                <div class="module-card m3">
+                    <div>
+                        <div class="icon">🔬</div>
+                        <h3>Nematelmintos</h3>
+                        <p>Vermes cilíndricos, pseudocelomados, ascaridíase, ancilostomose, oxiurose e filariose.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openModule(3)">Estudar Módulo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUALIZADOR DE AULAS DOS MÓDULOS -->
+        <section id="lesson-view" class="page-section">
+            <button class="btn btn-secondary" onclick="nav('modules')" style="margin-bottom: 1rem;">← Voltar aos Módulos</button>
+            <div class="lesson-container">
+                <div class="lesson-header">
+                    <h2 id="lesson-title">Título da Aula</h2>
+                    <span id="lesson-badge-counter" style="background: var(--primary-purple); color: white; padding: 4px 12px; border-radius: 20px; font-weight: 700;">Aula 1 de 6</span>
+                </div>
+                
+                <div id="lesson-body">
+                    <!-- Conteúdo dinâmico das aulas via JS -->
+                </div>
+
+                <!-- QUIZ DA AULA -->
+                <div class="quiz-box" id="quiz-area" style="display: none;">
+                    <h3>❓ Quiz de Fixação (5 Questões)</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Responda para ganhar XP e liberar a próxima etapa!</p>
+                    <div id="quiz-questions-container"></div>
+                    <button id="btn-finish-quiz" class="btn btn-primary" onclick="submitLessonQuiz()" style="margin-top: 15px; display: none;">Concluir e Salvar Aula</button>
+                </div>
+
+                <div style="margin-top: 2rem; display: flex; justify-content: space-between;" id="lesson-nav-buttons">
+                    <button class="btn btn-secondary" id="btn-prev-lesson" onclick="prevLesson()">Aula Anterior</button>
+                    <button class="btn btn-primary" id="btn-start-quiz" onclick="showQuiz()">Fazer Quiz da Aula 📝</button>
+                    <button class="btn btn-blue" id="btn-next-lesson" onclick="nextLesson()" style="display: none;">Próxima Aula →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. REVISÃO RÁPIDA -->
+        <section id="revision" class="page-section">
+            <h2>⚡ Revisão de Última Hora</h2>
+            <p style="margin-bottom: 1.5rem; color: #555;">Resumos ultra-objetivos das matérias para você revisar logo antes da prova!</p>
+
+            <div class="summary-card">
+                <h3>🧬 Etapas do Desenvolvimento Embrionário</h3>
+                <ul>
+                    <li><span class="keyword">Fecundação:</span> União do Óvulo + Espermatozoide $\rightarrow$ Formação do <strong>Zigoto</strong> (2n).</li>
+                    <li><span class="keyword">Segmentação (Clivagem):</span> Divisões mitóticas sucessivas sem aumento de volume. Formação do bloco celular <strong>Mórula</strong> e depois a esfera oca <strong>Blástula</strong>.</li>
+                    <li><span class="keyword">Gastrulação:</span> Organização dos folhetos embrionários e formação do arquêntero (intestino primitivo) e blastóporo.</li>
+                    <li><span class="keyword">Neurulação:</span> Formação da placa neural, pregas neurais e <strong>Tubo Neural</strong> (origina o Sistema Nervoso Central). Formação da Notocorda.</li>
+                </ul>
+
+                <h4 style="margin-top: 15px;">Folhetos Embrionários e Suas Origens:</h4>
+                <table>
+                    <tr>
+                        <th>Folheto</th>
+                        <th>O que origina no corpo adulto?</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Ectoderma</strong></td>
+                        <td>Epiderme e anexos, Sistema Nervoso (encéfalo e medula spinal), esmalte dos dentes.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mesoderma</strong></td>
+                        <td>Derme, Músculos, Ossos, Sistema Cardiovascular, Sistema Urinário e Reprodutor.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endoderma</strong></td>
+                        <td>Revestimento do tubo digestório, Fígado, Pâncreas e Sistema Respiratório (pulmões).</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="summary-card">
+                <h3>🪱 Platelmintos vs Nematelmintos</h3>
+                <table>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Platelmintos</th>
+                        <th>Nematelmintos</th>
+                    </tr>
+                    <tr>
+                        <td>Forma do Corpo</td>
+                        <td>Achatado dorsoventralmente</td>
+                        <td>Cilíndrico e alongado (fita vs tubo)</td>
+                    </tr>
+                    <tr>
+                        <td>Cavidade Corporal</td>
+                        <td><strong>Acelomados</strong></td>
+                        <td><strong>Pseudocelomados</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Tubo Digestório</td>
+                        <td>Incompleto (apenas boca) ou ausente</td>
+                        <td><strong>Completo</strong> (Boca e Ânus)</td>
+                    </tr>
+                    <tr>
+                        <td>Exemplos</td>
+                        <td>Planária, <i>Schistosoma</i>, Taenia</td>
+                        <td>Lombriga, Ancilóstomo, Oxiúro, Filária</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="summary-card">
+                <h3>🦠 Comparativo Rápido de Parasitoses Escolares</h3>
+                <table>
+                    <tr>
+                        <th>Doença</th>
+                        <th>Grupo</th>
+                        <th>Transmissão</th>
+                        <th>Característica Marcante / Prevenção</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Esquistossomose</strong></td>
+                        <td>Platelminto</td>
+                        <td>Penetração ativa de <strong>cercárias</strong> na pele (em água doce com caramujos <i>Biomphalaria</i>).</td>
+                        <td>"Barriga d'água". Saneamento básico e evitar lagoas de coceira.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teníase</strong></td>
+                        <td>Platelminto</td>
+                        <td>Ingestão de carne bovina/suína crua/malcozida com <strong>cisticercos</strong>.</td>
+                        <td>Verme adulto no intestino (Solitária).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cisticercose</strong></td>
+                        <td>Platelminto</td>
+                        <td>Ingestão acidental dos <strong>ovos</strong> da <i>Taenia solium</i> (água ou hortaliças contaminadas).</td>
+                        <td>Ovos chocam no corpo e se alojam no cérebro ou músculos (Grave!).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ascaridíase</strong></td>
+                        <td>Nematelminte</td>
+                        <td>Ingestão de <strong>ovos</strong> de <i>Ascaris lumbricoides</i> na água ou alimentos.</td>
+                        <td>Lombriga. Ciclo de migração cardiopulmonar (vai até o pulmão).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ancilostomose</strong></td>
+                        <td>Nematelminte</td>
+                        <td>Penetração ativa de <strong>larvas</strong> na pele (caminhar descalço na terra).</td>
+                        <td>"Amarelão" / Anemia severa por fixação do verme na parede do intestino.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Oxiurose</strong></td>
+                        <td>Nematelminte</td>
+                        <td>Ingestão de ovos (frequente autoinfecção em crianças).</td>
+                        <td>Prurido (coceira) anal noturno intenso.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filariose</strong></td>
+                        <td>Nematelminte</td>
+                        <td>Picada do mosquito <i>Culex</i> contaminado.</td>
+                        <td>Elefantíase. Bloqueio dos vasos linfáticos gerando inchaço extremo nos membros.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- 9. SIMULADO DA PROVA -->
+        <section id="simulado" class="page-section">
+            <div class="lesson-container">
+                <h2>✍️ Simulado Geral de Biologia (20 Questões)</h2>
+                <p style="color: #666; margin-bottom: 20px;">Teste seus conhecimentos com questões idênticas às de vestibulares e provas do 2º Ano!</p>
+
+                <div id="simulado-quiz-body">
+                    <!-- Renderização via JS -->
+                </div>
+
+                <div id="simulado-result" style="display: none; text-align: center; padding: 20px;">
+                    <h3 style="font-size: 2rem; color: #1e3c72;">Resultado do Simulado</h3>
+                    <div style="font-size: 4rem; margin: 20px 0;" id="simulado-score-display">0/20</div>
+                    <p style="font-size: 1.3rem; margin-bottom: 20px;" id="simulado-feedback-text">Nota final: 0.0</p>
+                    <div id="simulado-details" style="text-align: left; background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;"></div>
+                    <button class="btn btn-primary" onclick="startSimulado()">Refazer Simulado 🔄</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        /* BASE DE DADOS DAS AULAS E CONTEÚDO DIDÁTICO */
+        const modulesData = {
+            1: {
+                title: "Desenvolvimento Embrionário",
+                badge: "badge-embrio",
+                lessons: [
+                    {
+                        title: "Aula 1: Fecundação",
+                        content: `
+                            <p class="lesson-step">A <strong>Fecundação</strong> é o processo no qual ocorre a fusão do gameta masculino (espermatozoide) com o gameta feminino (ovócito II / óvulo). O resultado direto dessa união é a formação da primeira célula do novo indivíduo: o <span class="keyword">Zigoto</span> (ou ovo), restaurando a diploidia (2n) da espécie.</p>
+                            
+                            <div class="highlight-box">
+                                <strong>💡 Fecundação Interna vs Externa:</strong><br>
+                                • <strong>Interna:</strong> Ocorre dentro do corpo do organismo progenitor feminino (ex: mamíferos, aves, répteis). Maior taxa de sobrevivência dos embriões.<br>
+                                • <strong>Externa:</strong> Os gametas são liberados no ambiente aquático (ex: peixes, anfíbios), exigindo grande quantidade de gametas.
+                            </div>
+
+                            <div class="curiosity-box">
+                                🔍 <strong>Curiosidade:</strong> No momento em que o primeiro espermatozoide toca a membrana do óvulo, ocorre a <i>reação cortical</i>, travando a entrada de qualquer outro espermatozoide (evitando a poliespermia).
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual o nome da célula diploide (2n) resultante da fusão dos gametas?", opts: ["Blástula", "Zigoto", "Gástrula", "Mórula"], ans: 1, exp: "O zigoto é a primeira célula formada após o encontro do óvulo com o espermatozoide." },
+                            { q: "Animais como peixes e anfíbios costumam realizar que tipo de fecundação?", opts: ["Externa", "Interna", "Assexuada", "Brotamento"], ans: 0, exp: "Eles liberam os gametas diretamente na água, configurando fecundação externa." },
+                            { q: "Qual o principal objetivo biologico de evitar a poliespermia?", opts: ["Impedir a formação de gêmeos", "Garantir a ploidia correta da espécie", "Aumentar a nutrição do embrião", "Acelerar a gastrulação"], ans: 1, exp: "Se entrarem múltiplos espermatozoides, a quantidade de DNA torna o desenvolvimento inviável." },
+                            { q: "Onde ocorre a fecundação humana normalmente?", opts: ["No útero", "Nas tubas uterinas", "Nos ovários", "Vagina"], ans: 1, exp: "A fecundação humana ocorre no terço distal das tubas uterinas (trompas de Falópio)." },
+                            { q: "A restauração da ploidia diploide significa que o zigoto tem:", opts: ["Cromossomos apenas da mãe", "Metade dos cromossomos normais", "Dois conjuntos de cromossomos (2n)", "Quatro conjuntos de cromossomos"], ans: 2, exp: "O haploide n (mãe) junta-se ao haploide n (pai), formando o diploide 2n." }
+                        ]
+                    },
+                    {
+                        title: "Aula 2: Segmentação ou Clivagem",
+                        content: `
+                            <p class="lesson-step">Logo após a formação do zigoto, iniciam-se consecutivas divisões celulares por <span class="keyword">mitose</span> sem que o embrião aumente seu tamanho total. Esse processo chama-se <strong>Segmentação ou Clivagem</strong>.</p>
+                            
+                            <p class="lesson-step">As células formadas nessas divisões são chamadas de <strong>Blastômeros</strong>.</p>
+
+                            <div class="highlight-box">
+                                <strong>Estágios Fundamentais:</strong><br>
+                                1. <strong>Mórula:</strong> Um maciço celular maciço parecido com uma amora (por volta de 16 a 64 células).<br>
+                                2. <strong>Blástula:</strong> A estrutura se organiza formando uma cavidade interna cheia de líquido (chamada de <i>blastocele</i>). Nos mamíferos, essa etapa é chamada de <i>Blastocisto</i>.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Como são chamadas as células resultantes das mitoses durante a clivagem?", opts: ["Folhetos", "Blastômeros", "Gametas", "Cercárias"], ans: 1, exp: "Blastômeros são as células individuais formadas pelas divisões iniciais do zigoto." },
+                            { q: "O estágio embrionário que se assemelha a uma amora sólida é a:", opts: ["Mórula", "Blástula", "Gástrula", "Nêurula"], ans: 0, exp: "Mórula vem do latim 'morus' (amora), devido ao seu aspecto celular denso." },
+                            { q: "A cavidade interna cheia de líquido presente na blástula chama-se:", opts: ["Arquêntero", "Blastóporo", "Blastocele", "Celoma"], ans: 2, exp: "Blastocele é a cavidade interna da blástula." },
+                            { q: "Durante a segmentação, o tamanho total do embrião:", opts: ["Triplica", "Permanece praticamente o mesmo", "Diminui pela metade", "Aumenta 100 vezes"], ans: 1, exp: "As células se dividem rapidamente mas não têm tempo de crescer entre as divisões." },
+                            { q: "Nos mamíferos, a estrutura da blástula é denominada:", opts: ["Cisto", "Blastocisto", "Notocorda", "Placenta"], ans: 1, exp: "O blastocisto é o nome dado à blástula nos mamíferos, capaz de se implantar no útero." }
+                        ]
+                    },
+                    {
+                        title: "Aula 3: Gastrulação e Folhetos Embrionários",
+                        content: `
+                            <p class="lesson-step">Na <span class="keyword">Gastrulação</span>, as células se reorganizam intensamente. Forma-se o <strong>Arquêntero</strong> (intestino primitivo) e o <strong>Blastóporo</strong> (abertura inicial).</p>
+                            
+                            <div class="highlight-box">
+                                <strong>Os 3 Folhetos Germinativos (Embrionários):</strong><br>
+                                • <strong>Ectoderma:</strong> Folheto externo. Origina a pele (epiderme), sistema nervoso, cabelos e unhas.<br>
+                                • <strong>Mesoderma:</strong> Folheto intermediário. Origina ossos, músculos, sistema circulatório e excretor.<br>
+                                • <strong>Endoderma:</strong> Folheto interno. Origina o revestimento do tubo digestório e pulmões.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual folheto embrionário é responsável por originar o Sistema Nervoso?", opts: ["Endoderma", "Mesoderma", "Ectoderma", "Celoma"], ans: 2, exp: "O Ectoderma dá origem tanto à pele quanto ao sistema nervoso." },
+                            { q: "O intestino primitivo do embrião formado na gastrulação é chamado de:", opts: ["Blastocele", "Arquêntero", "Notocorda", "Tubo Neural"], ans: 1, exp: "Arquêntero é a cavidade digestiva primitiva do embrião." },
+                            { q: "Os músculos e o sistema circulatório são originados a partir de qual folheto?", opts: ["Ectoderma", "Endoderma", "Mesoderma", "Epiderme"], ans: 2, exp: "O Mesoderma origina tecidos conjuntivos, musculares e vasculares." },
+                            { q: "O revestimento interno dos pulmões e do tubo digestivo origina-se do:", opts: ["Endoderma", "Ectoderma", "Mesoderma", "Blastóporo"], ans: 0, exp: "O Endoderma forma o revestimento mucoso dos órgãos internos." },
+                            { q: "A abertura que comunica o arquêntero com o meio externo é o:", opts: ["Ânus", "Blastóporo", "Celoma", "Nêurula"], ans: 1, exp: "O blastóporo é essa primeira abertura do embrião na gástrula." }
+                        ]
+                    },
+                    {
+                        title: "Aula 4: Neurulação",
+                        content: `
+                            <p class="lesson-step">A <strong>Neurulação</strong> é a fase imediatamente posterior à gastrulação onde ocorre a formação do <span class="keyword">Tubo Neural</span> (que originará o cérebro e a medula espinhal).</p>
+                            <div class="highlight-box">
+                                <strong>Notocorda:</strong> Eixo de sustentação flexível exclusivo do filo dos Cordados, formado a partir do mesoderma. Ela induz a diferenciação do ectoderma acima dela para formar a placa neural e posteriormente o Tubo Neural!
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "O tubo neural dará origem a qual estrutura no organismo adulto?", opts: ["Sistema Circulatório", "Sistema Nervoso Central", "Sistema Digestório", "Esqueleto Ósseo"], ans: 1, exp: "O tubo neural origina o encéfalo e a medula espinhal." },
+                            { q: "A notocorda é formada a partir de qual folheto embrionário?", opts: ["Mesoderma", "Ectoderma", "Endoderma", "Blastocele"], ans: 0, exp: "A notocorda deriva de uma região específica do mesoderma." },
+                            { q: "O tubo neural é formado pelo dobramento e afundamento de qual folheto?", opts: ["Endoderma", "Ectoderma", "Mesoderma", "Epiderme"], ans: 1, exp: "O ectoderma dorsal dobra-se formando a sulco e depois o tubo neural." },
+                            { q: "A presença de notocorda em alguma fase da vida é marca registrada de qual grupo?", opts: ["Artrópodes", "Cordados", "Platelmintos", "Moluscos"], ans: 1, exp: "Todos os animais cordados possuem notocorda em fase embrionária." },
+                            { q: "Em vertebrados adultos, a notocorda é substituída predominantemente pela:", opts: ["Coluna Vertebral", "Medula Espinhal", "Cauda", "Pele"], ans: 0, exp: "A coluna vertebral substitui a notocorda na sustentação." }
+                        ]
+                    },
+                    {
+                        title: "Aula 5: Organogênese",
+                        content: `
+                            <p class="lesson-step">A <strong>Organogênese</strong> é a fase final do desenvolvimento embrionário na qual os folhetos germinativos passam por diferenciação celular intensa para formar os tecidos e órgãos definitivos do corpo.</p>
+                            <p class="lesson-step">Nesta etapa, os genes são ativados e desativados especificamente para que cada célula assuma sua função especializada no organismo.</p>
+                        `,
+                        quiz: [
+                            { q: "O processo em que células indiferenciadas ganham funções específicas é chamado de:", opts: ["Fecundação", "Diferenciação Celular", "Mitose simples", "Segmentação"], ans: 1, exp: "Diferenciação é a especialização estrutural e funcional das células." },
+                            { q: "A organogênese resulta diretamente na formação de:", opts: ["Apenas células reprodutivas", "Órgãos e sistemas do corpo", "Apenas a mórula", "Ovos sem casca"], ans: 1, exp: "Organogênese = origem/formação dos órgãos." },
+                            { q: "Qual estrutura não se forma durante a organogênese?", opts: ["Cérebro", "Coração", "Zigoto", "Fígado"], ans: 2, exp: "O zigoto é formado no início (fecundação), muito antes da organogênese." },
+                            { q: "Todas as células do embrião possuem o mesmo DNA?", opts: ["Sim", "Não", "Apenas no ectoderma", "Depende do sexo"], ans: 0, exp: "Sim! Elas se diferenciam ativando/desativando partes específicas desse mesmo DNA." },
+                            { q: "A diferenciação celular é guiada principalmente pela:", opts: ["Expressão gênica seletiva", "Destruição do DNA celular", "Perda de cromossomos", "Fagocitose"], ans: 0, exp: "Diferentes genes são expressos em diferentes células." }
+                        ]
+                    },
+                    {
+                        title: "Aula 6: Classificação Embrionária dos Animais",
+                        content: `
+                            <p class="lesson-step">Os animais são classificados de acordo com características do seu desenvolvimento:</p>
+                            <div class="highlight-box">
+                                <strong>Quanto aos Folhetos:</strong><br>
+                                • <strong>Diblásticos:</strong> Possuem apenas 2 folhetos (Ecto e Endoderma). Ex: Cnidários (Águas-vivas).<br>
+                                • <strong>Triblásticos:</strong> Possuem 3 folhetos (Ecto, Meso e Endoderma). Todos os outros animais.<br><br>
+                                <strong>Quanto ao Celoma (cavidade revestida por mesoderma):</strong><br>
+                                • <strong>Acelomados:</strong> Sem cavidade corporal. Ex: Platelmintos.<br>
+                                • <strong>Pseudocelomados:</strong> Cavidade parcialmente revestida por mesoderma/endoderma. Ex: Nematelmintos.<br>
+                                • <strong>Celomados:</strong> Cavidade inteiramente revestida pelo mesoderma. Ex: Anelídeos, Moluscos, Cordados.<br><br>
+                                <strong>Quanto ao Destino do Blastóporo:</strong><br>
+                                • <strong>Protostômios:</strong> O blastóporo origina a <strong>Boca</strong>.<br>
+                                • <strong>Deuterostômios:</strong> O blastóporo origina o <strong>Ânus</strong>. Ex: Equinodermos e Cordados (como nós!).
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Animais em que o blastóporo origina primeiro o Ânus são classificados como:", opts: ["Protostômios", "Deuterostômios", "Acelomados", "Diblásticos"], ans: 1, exp: "Deuterostômios (Deutero = segundo) formam a boca em segundo lugar e o ânus primeiro." },
+                            { q: "Os Platelmintos são animais que NÃO possuem cavidade corporal, portanto são:", opts: ["Celomados", "Pseudocelomados", "Acelomados", "Deuterostômios"], ans: 2, exp: "Acelomados significa 'sem celoma'." },
+                            { q: "Os Nematelmintos são caracterizados por apresentarem celoma parcial, sendo:", opts: ["Acelomados", "Pseudocelomados", "Celomados", "Diblásticos"], ans: 1, exp: "Pseudocelomados têm cavidade não inteiramente revestida por mesoderma." },
+                            { q: "Seres humanos pertencem ao grupo dos animais:", opts: ["Diblásticos e Protostômios", "Triblásticos, Celomados e Deuterostômios", "Acelomados", "Pseudocelomados"], ans: 1, exp: "Mamíferos são triblásticos (3 folhetos), celomados verdadeiros e deuterostômios." },
+                            { q: "Águas-vivas (cnidários) possuem apenas 2 folhetos embrionários. Elas são:", opts: ["Diblásticas", "Triblásticas", "Monoblásticas", "Celomadas"], ans: 0, exp: "Di = dois. Diblásticos têm ectoderma e endoderma." }
+                        ]
+                    }
+                ]
+            },
+            2: {
+                title: "Platelmintos (Vermes Achatados)",
+                badge: "badge-platel",
+                lessons: [
+                    {
+                        title: "Aula 1: Características Gerais dos Platelmintos",
+                        content: `
+                            <p class="lesson-step">Os <strong>Platelmintos</strong> (do grego <i>platys</i> = chato; <i>helminthos</i> = verme) são vermes de corpo achatado dorsoventralmente.</p>
+                            <div class="highlight-box">
+                                <strong>Principais Características para a Prova:</strong><br>
+                                • <strong>Simetria Bilateral:</strong> Corpo dividido em duas metades espelhadas.<br>
+                                • <strong>Triblásticos & Acelomados:</strong> 3 folhetos embrionários, mas sem celoma.<br>
+                                • <strong>Sistema Digestório Incompleto:</strong> Têm boca, mas NÃO têm ânus (o que não é digerido sai pela boca!). As tênias nem sistema digestório possuem!<br>
+                                • <strong>Ausência de Sistema Circulatório e Respiratório:</strong> A troca de gases é feita por difusão célula a célula.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual a forma característica do corpo dos platelmintos?", opts: ["Cilíndrico", "Achatado", "Segmentado em anéis", "Esférico"], ans: 1, exp: "Platelmintos são conhecidos popularmente como vermes achatados." },
+                            { q: "Em relação ao celoma, os platelmintos são classificados como:", opts: ["Celomados", "Pseudocelomados", "Acelomados", "Deuterostômios"], ans: 2, exp: "Não possuem cavidade corporal interna (acelomados)." },
+                            { q: "O sistema digestório dos platelmintos (quando presente) é considerado incompleto porque:", opts: ["Não possui boca", "Não possui ânus", "Não possui estômago", "Não absorve nutrientes"], ans: 1, exp: "Sistema incompleto possui apenas uma abertura (boca)." },
+                            { q: "Como ocorrem a respiração e a circulação nesses animais?", opts: ["Por brânquias", "Por pulmões", "Por difusão através da pele", "Por coração tubular"], ans: 2, exp: "Devido ao corpo fino e achatado, o oxigênio difunde-se facilmente entre as células." },
+                            { q: "Planárias e Tênias pertencem a qual grupo biológico?", opts: ["Nematelmintos", "Anelídeos", "Platelmintos", "Moluscos"], ans: 2, exp: "Ambos são vermes achatados (Platelmintos)." }
+                        ]
+                    },
+                    {
+                        title: "Aula 2: Classificação dos Platelmintos",
+                        content: `
+                            <p class="lesson-step">Os platelmintos são divididos em 3 classes principais:</p>
+                            <div class="highlight-box">
+                                1. <strong>Turbelários:</strong> Vermes de vida livre, maior parte aquática. Exemplo clássico: <span class="keyword">Planária</span> (famosa por sua incrível capacidade de regeneração).<br>
+                                2. <strong>Trematódeos:</strong> Parasitas de corpo não segmentado com ventosas. Exemplo: <i>Schistosoma mansoni</i> (causador da esquistossomose).<br>
+                                3. <strong>Cestódeos:</strong> Parasitas de corpo em fita, segmentado em <i>proglótides</i>. Não possuem tubo digestório. Exemplo: <span class="keyword">Tênia (Solitária)</span>.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual das classes engloba platelmintos de vida livre como a Planária?", opts: ["Trematódeos", "Cestódeos", "Turbelários", "Nematódeos"], ans: 2, exp: "Turbellaria reúne os vermes de vida livre não parasitas." },
+                            { q: "As Tênias (solitárias) pertencem a qual classe de platelmintos?", opts: ["Cestódeos", "Turbelários", "Trematódeos", "Anelídeos"], ans: 0, exp: "Cestoda é a classe das tênias (corpo em fita com proglótides)." },
+                            { q: "Por que as tênias não possuem sistema digestório?", opts: ["Porque são muito pequenas", "Porque vivem no intestino e absorvem nutrientes já digeridos", "Porque não comem", "Porque têm dentes afiados"], ans: 1, exp: "Banhadas pelo quimo digestivo do hospedeiro, absorvem tudo diretamente pela pele." },
+                            { q: "O <i>Schistosoma mansoni</i> pertence a qual classe?", opts: ["Turbelários", "Trematódeos", "Cestódeos", "Protozoários"], ans: 1, exp: "É um trematódeo parasita." },
+                            { q: "Estruturas de reprodução repetidas no corpo das tênias são chamadas de:", opts: ["Escólex", "Proglótides", "Cercárias", "Ocelos"], ans: 1, exp: "O corpo da tênia é formado por centenas de segmentos chamados proglótides." }
+                        ]
+                    },
+                    {
+                        title: "Aula 3: Esquistossomose",
+                        content: `
+                            <p class="lesson-step">A <strong>Esquistossomose</strong> (ou "barriga-d'água") é uma verminose gravíssima provocada pelo <i>Schistosoma mansoni</i>.</p>
+                            <div class="highlight-box">
+                                <strong>Ciclo de Vida e Transmissão:</strong><br>
+                                • <strong>Hospedeiro Definitivo:</strong> Ser Humano (onde o verme adulto se reproduz sexuadamente nos vasos do fígado/intestino).<br>
+                                • <strong>Hospedeiro Intermediário:</strong> Caramujo de água doce do gênero <i>Biomphalaria</i>.<br>
+                                • <strong>Forma de Contágio:</strong> A larva <span class="keyword">Cercária</span> sai do caramujo e <strong>penetra ativamente pela pele</strong> de pessoas que tomam banho em águas contaminadas ("lagoas de coceira").<br>
+                                • <strong>Prevenção:</strong> Saneamento básico, tratamento dos doentes e eliminação do caramujo hospedeiro.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual o hospedeiro intermediário da Esquistossomose?", opts: ["Porco", "Boi", "Caramujo <i>Biomphalaria</i>", "Mosquito <i>Culex</i>"], ans: 2, exp: "O caramujo de água doce abriga as fases de reprodução assexuada da larva." },
+                            { q: "Qual o nome da larva que penetra ativamente na pele humana causando a esquistossomose?", opts: ["Miracídio", "Cercária", "Cisticerco", "Trocofera"], ans: 1, exp: "A cercária nadadora penetra na pele humana." },
+                            { q: "A esquistossomose é popularmente conhecida como:", opts: ["Amarelão", "Barriga-d'água", "Elefantíase", "Cisto hidático"], ans: 1, exp: "Devido ao inchaço abdominal provocado pelo acúmulo de líquido (ascite)." },
+                            { q: "A melhor medida de prevenção contra a esquistossomose é:", opts: ["Usar repelente de insetos", "Saneamento básico e não entrar em lagoas contaminadas", "Cozinhar bem a carne de porco", "Lavar bem as mãos antes de comer"], ans: 1, exp: "Evita que fezes cheguem às águas e que cercárias entrem na pele." },
+                            { q: "O larva que sai do ovo no ambiente aquático e infecta o caramujo é o:", opts: ["Miracídio", "Cercária", "Cisticerco", "Verme adulto"], ans: 0, exp: "O miracídio choca do ovo e nada até encontrar o caramujo." }
+                        ]
+                    },
+                    {
+                        title: "Aula 4: Teníase e Cisticercose",
+                        content: `
+                            <p class="lesson-step">Atenção extrema para a PROVA! <strong>Teníase</strong> e <strong>Cisticercose</strong> são doenças DIFERENTES causadas pela mesma espécie de verme (<i>Taenia solium</i> ou <i>Taenia saginata</i>).</p>
+                            
+                            <div class="highlight-box">
+                                <strong>1. TENÍASE (Você tem o verme adulto no intestino):</strong><br>
+                                • <strong>Contágio:</strong> Ingestão de carne de porco (<i>T. solium</i>) ou boi (<i>T. saginata</i>) crua ou malcozida contendo a larva <span class="keyword">Cisticerco</span> ("canjiquinha").<br><br>
+                                <strong>2. CISTICERCOSE (Você desenvolve os cistos no corpo/cérebro):</strong><br>
+                                • <strong>Contágio:</strong> Ingestão acidental dos <strong>OVOS</strong> da <i>Taenia solium</i> através de água ou verduras contaminadas com fezes humanas.<br>
+                                • O ser humano atua como hospedeiro intermediário acidental!
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Como o ser humano adquire TENÍASE?", opts: ["Comendo carne crua/malcozida com cisticercos", "Ingerindo ovos na água", "Pela picada de mosquito", "Andando descalço"], ans: 0, exp: "Comer carne infectada com cisticerco leva ao desenvolvimento da tênia adulta no intestino." },
+                            { q: "A CISTICERCOSE humana ocorre quando a pessoa ingere diretamente:", opts: ["Carne de boi crua", "Ovos de <i>Taenia solium</i>", "Caramujos", "Larvas cercárias"], ans: 1, exp: "A ingestão dos ovos faz as larvas se alojarem nos tecidos humanos." },
+                            { q: "Qual órgão é mais gravemente afetado pela neurocisticercose?", opts: ["Coração", "Cérebro", "Pulmão", "Fígado"], ans: 1, exp: "O alojamento dos cisticercos no sistema nervoso central (cérebro) pode ser fatal." },
+                            { q: "Qual das tênias pode causar Cisticercose humana?", opts: ["<i>Taenia saginata</i> (boi)", "<i>Taenia solium</i> (porco)", "<i>Ascaris lumbricoides</i>", "<i>Schistosoma</i>"], ans: 1, exp: "Apenas os ovos da <i>Taenia solium</i> causam cisticercose em humanos." },
+                            { q: "O escólex da tênia é a estrutura responsável por:", opts: ["Produzir ovos", "Fixação na parede intestinal", "Fazer a digestão", "Nadar"], ans: 1, exp: "O escólex é a 'cabeça' da tênia com ventosas/ganchos de fixação." }
+                        ]
+                    }
+                ]
+            },
+            3: {
+                title: "Nematelmintos (Nematódeos)",
+                badge: "badge-nemat",
+                lessons: [
+                    {
+                        title: "Aula 1: Características Gerais dos Nematelmintos",
+                        content: `
+                            <p class="lesson-step">Os <strong>Nematelmintos</strong> (nematódeos) são vermes de corpo cilíndrico, alongado e com extremidades afuniladas.</p>
+                            <div class="highlight-box">
+                                <strong>Diferenciais Fundamentais:</strong><br>
+                                • <strong>Tubo Digestório COMPLETO:</strong> Primeiros animais a apresentarem Boca e <span class="keyword">Ânus</span>!<br>
+                                • <strong>Pseudocelomados:</strong> Cavidade corporal parcialmente revestida.<br>
+                                • <strong>Corpo não segmentado:</strong> Revestido por uma cutícula resistente de quitina que protege contra os ácidos digestivos do hospedeiro.<br>
+                                • <strong>Dimorfismo Sexual:</strong> Macho e fêmea são visualmente diferentes (o macho geralmente é menor e tem a cauda curva).
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual a novidade evolutiva do sistema digestório dos nematelmintos frente aos platelmintos?", opts: ["Presença de estômago", "Presença de Ânus (Tubo completo)", "Dentes afiados", "Ausência de boca"], ans: 1, exp: "Eles são os primeiros a apresentar tubo digestório completo (boca e ânus)." },
+                            { q: "Quanto à cavidade corporal, os nematelmintos são:", opts: ["Acelomados", "Pseudocelomados", "Celomados", "Diblásticos"], ans: 1, exp: "Eles possuem pseudoceloma." },
+                            { q: "O corpo dos nematelmintos possui formato:", opts: ["Achatado como fita", "Cilíndrico e alongado", "Dividido em anéis", "Esférico"], ans: 1, exp: "São vermes em formato de tubo/cilindro." },
+                            { q: "O que protege os nematelmintos parasitas contra os sucos digestivos do hospedeiro?", opts: ["Uma espessa cutícula", "Uma concha de cálcio", "Anticorpos", "Cerdas de ferro"], ans: 0, exp: "A cutícula protéica protetora recobre todo o seu corpo." },
+                            { q: "A diferença marcante de formato entre machos e fêmeas é chamada de:", opts: ["Metamorfose", "Dimorfismo sexual", "Brotamento", "Hermafroditismo"], ans: 1, exp: "Dimorfismo sexual = duas formas sexuais distintas." }
+                        ]
+                    },
+                    {
+                        title: "Aula 2: Ascaridíase e Oxiurose",
+                        content: `
+                            <p class="lesson-step"><strong>1. Ascaridíase (Lombrigase):</strong> Caused pelo <i>Ascaris lumbricoides</i>.</p>
+                            <div class="highlight-box">
+                                • <strong>Transmissão:</strong> Ingestão de ovos presentes em água ou alimentos mal lavados.<br>
+                                • <strong>Ciclo Pulmonar:</strong> As larvas chocam no intestino, furam a parede, caem na corrente sanguínea, passam pelos <strong>PULMÕES</strong>, sobem pela traqueia, são reengolidas e viram adultos no intestino!<br>
+                                • <strong>Prevenção:</strong> Saneamento básico, lavar bem frutas/verduras e higiene pessoal.
+                            </div>
+                            
+                            <p class="lesson-step"><strong>2. Oxiurose (Enterobíase):</strong> Causada pelo <i>Enterobius vermicularis</i>.</p>
+                            <div class="highlight-box">
+                                • <strong>Sintoma Marcante:</strong> Coceira (prurido) anal noturna intensa, pois a fêmea migra para o ânus para botar ovos. Muito comum em crianças.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "Qual verme nematelminte é popularmente conhecido como lombriga?", opts: ["<i>Taenia solium</i>", "<i>Ascaris lumbricoides</i>", "<i>Ancylostoma</i>", "<i>Wuchereria</i>"], ans: 1, exp: "<i>Ascaris lumbricoides</i> é a famosa lombriga." },
+                            { q: "As larvas de <i>Ascaris lumbricoides</i> passam por qual órgão vital durante seu ciclo?", opts: ["Rins", "Pulmões", "Cérebro", "Vesícula"], ans: 1, exp: "Elas fazem migração cardiopulmonar antes de se fixarem no intestino." },
+                            { q: "O sintoma mais característico da Oxiurose é:", opts: ["Inchaço nas pernas", "Coceira anal noturna", "Feridas na pele", "Paralisia"], ans: 1, exp: "A fêmea do oxiúro deposita ovos na região perianal à noite, causando coceira." },
+                            { q: "A transmissão tanto da Ascaridíase quanto da Oxiurose ocorre por:", opts: ["Picada de mosquito", "Ingestão de ovos em água/alimentos", "Penetração de larvas nos pés", "Carne de boi crua"], ans: 1, exp: "Ambas são adquiridas por via oral com a ingestão de ovos." },
+                            { q: "Como evitar a infecção por <i>Ascaris lumbricoides</i>?", opts: ["Usar mosquiteiro", "Lavar bem verduras e ter saneamento básico", "Não comer carne bovina", "Não tomar banho em lagoas"], ans: 1, exp: "Alimentos limpos e água tratada impedem a ingestão dos ovos." }
+                        ]
+                    },
+                    {
+                        title: "Aula 3: Ancilostomose e Filariose",
+                        content: `
+                            <p class="lesson-step"><strong>1. Ancilostomose ("Amarelão" / Doença do Jeca Tatu):</strong></p>
+                            <div class="highlight-box">
+                                • <strong>Agentes:</strong> <i>Ancylostoma duodenale</i> ou <i>Necator americanus</i>.<br>
+                                • <strong>Transmissão:</strong> Penetração ATIVA de larvas através da pele (geralmente ao caminhar descalço na terra contaminada).<br>
+                                • <strong>Sintoma:</strong> O verme prende-se na parede intestinal com dentes/placas e sugam sangue, causando grave <strong>ANEMIA</strong> (deixando a pessoa pálida/amarela).
+                            </div>
+
+                            <p class="lesson-step"><strong>2. Filariose (Elefantíase):</strong></p>
+                            <div class="highlight-box">
+                                • <strong>Agente:</strong> <i>Wuchereria bancrofti</i>.<br>
+                                • <strong>Transmissão:</strong> Picada do mosquito vetor (gênero <i>Culex</i>).<br>
+                                • <strong>Sintoma:</strong> Os vermes adultos entopem os vasos linfáticos, gerando acúmulo de líquido e inchaço monstruoso nas pernas ou escroto.
+                            </div>
+                        `,
+                        quiz: [
+                            { q: "A Ancilostomose é conhecida como 'amarelão' porque causa:", opts: ["Hepatite grave", "Anemia profunda devido à perda de sangue no intestino", "Pele seca", "Febre amarela"], ans: 1, exp: "Os vermes fixam-se no intestino e sugam sangue, provocando anemia e palidez." },
+                            { q: "Como ocorre a contaminação pela Ancilostomose?", opts: ["Ingestão de ovos", "Penetração ativa de larvas pela pele dos pés", "Picada do mosquito <i>Culex</i>", "Comer carne de porco"], ans: 1, exp: "Andar descalço em solo contaminado por fezes permite a entrada das larvas." },
+                            { q: "Qual a forma de transmissão da Filariose (Elefantíase)?", opts: ["Picada de mosquito infectado", "Penetração pela pele ao andar descalço", "Comer peixe cru", "Ingerir ovos na salada"], ans: 0, exp: "É transmitida pela picada de fêmeas do mosquito <i>Culex</i>." },
+                            { q: "Na Filariose, o inchaço exagerado dos membros ocorre devido ao bloqueio de qual sistema?", opts: ["Sistema Nervoso", "Sistema Linfático", "Sistema Digestório", "Sistema Ósseo"], ans: 1, exp: "Os vermes adultos alojam-se e entopem os vasos linfáticos." },
+                            { q: "Qual medida é eficaz contra a Ancilostomose?", opts: ["Usar calçados ao andar sobre a terra", "Usar inseticidas", "Evitar comer carne suína", "Ferver a água do mar"], ans: 0, exp: "Usar sapatos impede que as larvas do solo entrem pelos pés." }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        /* BASE DE DADOS DO SIMULADO (20 QUESTÕES) */
+        const simuladoQuestions = [
+            { q: "1. (Fácil - Embriologia) A sequência correta das primeiras etapas do desenvolvimento embrionário é:", opts: ["Blástula -> Mórula -> Gástrula -> Zigoto", "Zigoto -> Mórula -> Blástula -> Gástrula", "Gástrula -> Blástula -> Mórula -> Zigoto", "Zigoto -> Gástrula -> Nêurula -> Mórula"], ans: 1, exp: "A ordem cronológica é: Fecundação (Zigoto) -> Mórula -> Blástula -> Gastrulação (Gástrula)." },
+            { q: "2. (Fácil - Platelmintos) Os platelmintos são caracterizados por apresentarem corpo:", opts: ["Cilíndrico com ânus", "Achatado dorsoventralmente", "Segmentado em anéis idênticos", "Com espinhos calcários"], ans: 1, exp: "Platelmintos são vermes de corpo chato." },
+            { q: "3. (Fácil - Nematelmintos) Diferente dos platelmintos, os nematelmintos possuem sistema digestório:", opts: ["Ausente", "Incompleto", "Completo (com boca e ânus)", "Sem boca"], ans: 2, exp: "Nematelmintos têm tubo digestório completo." },
+            { q: "4. (Média - Embriologia) O folheto embrionário Ectoderma é responsável por formar no adulto:", opts: ["Músculos e ossos", "Sistema Nervoso e Epiderme", "Revestimento do Intestino e Pulmões", "Coração e Vasos"], ans: 1, exp: "Ectoderma forma a pele (epiderme) e todo o sistema nervoso." },
+            { q: "5. (Média - Platelmintos) A ingestão acidental de OVOS de Taenia solium em água ou vegetais leva ao desenvolvimento de:", opts: ["Teníase", "Cisticercose", "Esquistossomose", "Ancilostomose"], ans: 1, exp: "Ovos de T. solium ingeridos geram a gravíssima Cisticercose." },
+            { q: "6. (Média - Nematelmintos) A parasitose cujo sintoma característico é o prurido (coceira) anal noturno é a:", opts: ["Oxiurose", "Ascaridíase", "Filariose", "Teníase"], ans: 0, exp: "Oxiurose (Enterobius vermicularis)." },
+            { q: "7. (Difícil - Embriologia) Animais cujo blastóporo origina primeiramente o ânus são classificados como:", opts: ["Protostômios", "Deuterostômios", "Pseudocelomados", "Diblásticos"], ans: 1, exp: "Deuterostômios formam o ânus a partir do blastóporo." },
+            { q: "8. (Média - Platelmintos) O caramujo do gênero Biomphalaria atua como hospedeiro intermediário da:", opts: ["Teníase", "Esquistossomose", "Filariose", "Ascaridíase"], ans: 1, exp: "Ele abriga as fases larvais do Schistosoma mansoni." },
+            { q: "9. (Difícil - Nematelmintos) A ancilostomose provoca intensa palidez (amarelão) no doente devido a:", opts: ["Destruição de neurônios", "Hepatite virótica", "Anemia por hemorragia intestinal", "Entupimento linfático"], ans: 2, exp: "Os vermes fixam-se com dentes no intestino e fixam sugando sangue constantemente." },
+            { q: "10. (Fácil - Embriologia) A cavidade interna cheia de líquido formada na blástula chama-se:", opts: ["Blastocele", "Arquêntero", "Celoma", "Notocorda"], ans: 0, exp: "Blastocele é a cavidade da blástula." },
+            { q: "11. (Média - Platelmintos) Qual platelminto pertence à classe Turbellaria e possui vida livre com grande capacidade de regeneração?", opts: ["Tênia", "Planária", "Esquistossomo", "Lombriga"], ans: 1, exp: "Planárias são turbelários de vida livre." },
+            { q: "12. (Média - Nematelmintos) A Filariose é uma doença transmitida por:", opts: ["Ingestão de carne de porco", "Picada de mosquito infectado", "Andar descalço no solo", "Contato com fezes de gato"], ans: 1, exp: "Transmitida pela picada do mosquito Culex." },
+            { q: "13. (Difícil - Embriologia) Um animal triblástico que NÃO possui celoma é um exemplo de:", opts: ["Pseudocelomado", "Acelomado", "Celomado", "Deuterostômico"], ans: 1, exp: "Triblásticos sem cavidade interior são Acelomados (ex: Platelmintos)." },
+            { q: "14. (Fácil - Platelmintos) O escólex com ventosas e ganchos na Tênia serve para:", opts: ["Locomoção rápida", "Fixação na mucosa intestinal", "Digestão de gorduras", "Respiração"], ans: 1, exp: "Serve para se fixar no intestino do hospedeiro." },
+            { q: "15. (Média - Nematelmintos) Qual verminose faz com que as larvas realizem um ciclo de passagem pelos pulmões do hospedeiro antes de atingir o intestino?", opts: ["Ascaridíase", "Oxiurose", "Teníase", "Cisticercose"], ans: 0, exp: "As larvas de Ascaris lumbricoides passam pelos pulmões durante a infecção." },
+            { q: "16. (Difícil - Embriologia) A notocorda é uma estrutura embrionária mesodérmica essencial porque:", opts: ["Origina o tubo digestivo", "Induz a formação do tubo neural acima dela", "Vira o coração do animal", "Substitui a epiderme"], ans: 1, exp: "A notocorda orienta a formação da placa neural no ectoderma." },
+            { q: "17. (Média - Platelmintos) A infecção humana por Teníase ocorre pela ingestão de:", opts: ["Ovos na salada", "Carne com cisticercos malcozida", "Agua contaminada por cercárias", "Picada de insetos"], ans: 1, exp: "Cisticercos na carne levam à Teníase adulta no intestino." },
+            { q: "18. (Fácil - Nematelmintos) Os nematelmintos possuem cavidade corporal revestida parcialmente pelo mesoderma, sendo considerados:", opts: ["Acelomados", "Pseudocelomados", "Celomados", "Diblásticos"], ans: 1, exp: "Pseudocelomados é a classificação correta." },
+            { q: "19. (Média - Embriologia) O Mesoderma origina quais das seguintes estruturas no corpo humano?", opts: ["Pele e Cérebro", "Ossos, músculos e sistema circulatório", "Fígado e Pulmões", "Cabelos e Unhas"], ans: 1, exp: "Mesoderma origina ossos, músculos, sangue e rins." },
+            { q: "20. (Difícil - Geral) A medida de prevenção direta capaz de combater simultaneamente a Ascaridíase, Ancilostomose e Esquistossomose é:", opts: ["Uso de repelente de insetos", "Saneamento básico e tratamento de esgoto", "Vacinação obrigatória", "Evitar consumo de carnes vermelhas"], ans: 1, exp: "O saneamento básico impede a contaminação do solo e das águas por ovos/fezes." }
+        ];
+
+        /* ESTADO DA APLICAÇÃO (GAMIFICAÇÃO & NAVEGAÇÃO) */
+        let state = {
+            xp: 0,
+            streak: 0,
+            level: 1,
+            progress: { 1: 0, 2: 0, 3: 0 },
+            badges: [],
+            currentModule: 1,
+            currentLessonIdx: 0,
+            simuladoAnswers: {}
+        };
+
+        // Carregar do LocalStorage ao iniciar
+        function loadStorage() {
+            const saved = localStorage.getItem('biologia_quest_data');
+            if (saved) {
+                try {
+                    state = JSON.parse(saved);
+                } catch(e){}
+            }
+            updateStatsUI();
+        }
+
+        function saveStorage() {
+            localStorage.setItem('biologia_quest_data', JSON.stringify(state));
+            updateStatsUI();
+        }
+
+        function addXP(amount) {
+            state.xp += amount;
+            state.streak += 1;
+            state.level = Math.floor(state.xp / 100) + 1;
+            saveStorage();
+        }
+
+        function updateStatsUI() {
+            document.getElementById('user-xp').innerText = state.xp;
+            document.getElementById('user-streak').innerText = state.streak;
+            document.getElementById('user-level').innerText = state.level;
+
+            // Progresso Geral
+            const totalLessons = 6 + 4 + 3; // 13 aulas
+            const completed = (state.progress[1] || 0) + (state.progress[2] || 0) + (state.progress[3] || 0);
+            const pct = Math.round((completed / totalLessons) * 100);
+            document.getElementById('main-progress-bar').style.width = pct + '%';
+            document.getElementById('progress-text').innerText = pct;
+
+            // Atualizar Medalhas
+            if (state.progress[1] >= 6) unlockBadge('badge-embrio');
+            if (state.progress[2] >= 4) unlockBadge('badge-platel');
+            if (state.progress[3] >= 3) unlockBadge('badge-nemat');
+            if (state.badges.includes('badge-simulado')) unlockBadge('badge-simulado');
+        }
+
+        function unlockBadge(id) {
+            if (!state.badges.includes(id)) {
+                state.badges.push(id);
+            }
+            const el = document.getElementById(id);
+            if (el) el.classList.add('unlocked');
+        }
+
+        /* NAVEGAÇÃO DAS PÁGINAS */
+        function nav(sectionId) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        /* GERENCIADOR DE MÓDULOS E AULAS */
+        function openModule(modId) {
+            state.currentModule = modId;
+            state.currentLessonIdx = 0;
+            renderLesson();
+            nav('lesson-view');
+        }
+
+        function renderLesson() {
+            const mod = modulesData[state.currentModule];
+            const lesson = mod.lessons[state.currentLessonIdx];
+
+            document.getElementById('lesson-title').innerText = lesson.title;
+            document.getElementById('lesson-badge-counter').innerText = `Aula ${state.currentLessonIdx + 1} de ${mod.lessons.length}`;
+            document.getElementById('lesson-body').innerHTML = lesson.content;
+
+            // Ocultar e Resetar Quiz
+            document.getElementById('quiz-area').style.display = 'none';
+            document.getElementById('btn-start-quiz').style.display = 'inline-flex';
+            document.getElementById('btn-next-lesson').style.display = 'none';
+
+            // Botão anterior
+            document.getElementById('btn-prev-lesson').style.disabled = state.currentLessonIdx === 0;
+
+            // Renderizar Questões do Quiz
+            let quizHtml = '';
+            lesson.quiz.forEach((q, i) => {
+                quizHtml += `
+                    <div style="margin-bottom: 20px;" id="q-block-${i}">
+                        <p style="font-weight:700;">${i+1}. ${q.q}</p>
+                        ${q.opts.map((opt, optIdx) => `
+                            <div class="quiz-option" onclick="selectQuizOpt(${i}, ${optIdx})">${opt}</div>
+                        `).join('')}
+                        <div class="feedback-box" id="fb-${i}"></div>
+                    </div>
+                `;
+            });
+            document.getElementById('quiz-questions-container').innerHTML = quizHtml;
+            document.getElementById('btn-finish-quiz').style.display = 'none';
+        }
+
+        function showQuiz() {
+            document.getElementById('quiz-area').style.display = 'block';
+            document.getElementById('btn-start-quiz').style.display = 'none';
+            document.getElementById('btn-finish-quiz').style.display = 'inline-flex';
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        let userQuizAnswers = {};
+
+        function selectQuizOpt(qIdx, optIdx) {
+            userQuizAnswers[qIdx] = optIdx;
+            const qBlock = document.getElementById(`q-block-${qIdx}`);
+            const opts = qBlock.querySelectorAll('.quiz-option');
+            opts.forEach((op, idx) => {
+                op.style.border = idx === optIdx ? '2px solid var(--primary-blue)' : '2px solid #e2e8f0';
+                op.style.background = idx === optIdx ? '#eef9ff' : 'white';
+            });
+        }
+
+        function submitLessonQuiz() {
+            const mod = modulesData[state.currentModule];
+            const lesson = mod.lessons[state.currentLessonIdx];
+            let correctCount = 0;
+
+            lesson.quiz.forEach((q, i) => {
+                const selected = userQuizAnswers[i];
+                const fb = document.getElementById(`fb-${i}`);
+                const opts = document.getElementById(`q-block-${i}`).querySelectorAll('.quiz-option');
+
+                fb.style.display = 'block';
+                if (selected === q.ans) {
+                    correctCount++;
+                    fb.className = 'feedback-box correct';
+                    fb.innerHTML = `✅ Correto! ${q.exp}`;
+                    if (opts[selected]) opts[selected].classList.add('correct');
+                } else {
+                    fb.className = 'feedback-box incorrect';
+                    fb.innerHTML = `❌ Incorreto. Resposta certa: <strong>${q.opts[q.ans]}</strong>.<br><small>${q.exp}</small>`;
+                    if (opts[selected]) opts[selected].classList.add('incorrect');
+                    if (opts[q.ans]) opts[q.ans].classList.add('correct');
+                }
+            });
+
+            // Dar XP por acertos
+            const xpGained = correctCount * 10;
+            addXP(xpGained);
+
+            // Atualizar Progresso no Módulo
+            if (state.currentLessonIdx + 1 > (state.progress[state.currentModule] || 0)) {
+                state.progress[state.currentModule] = state.currentLessonIdx + 1;
+                saveStorage();
+            }
+
+            alert(`Você acertou ${correctCount} de 5 questões e ganhou +${xpGained} XP! 🎉`);
+
+            document.getElementById('btn-finish-quiz').style.display = 'none';
+            if (state.currentLessonIdx < mod.lessons.length - 1) {
+                document.getElementById('btn-next-lesson').style.display = 'inline-flex';
+            }
+        }
+
+        function nextLesson() {
+            userQuizAnswers = {};
+            state.currentLessonIdx++;
+            renderLesson();
+        }
+
+        function prevLesson() {
+            if (state.currentLessonIdx > 0) {
+                userQuizAnswers = {};
+                state.currentLessonIdx--;
+                renderLesson();
+            }
+        }
+
+        /* LÓGICA DO SIMULADO DE 20 QUESTÕES */
+        function startSimulado() {
+            state.simuladoAnswers = {};
+            nav('simulado');
+            document.getElementById('simulado-result').style.display = 'none';
+            
+            let html = '';
+            simuladoQuestions.forEach((q, i) => {
+                html += `
+                    <div style="background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 20px;" id="sim-q-${i}">
+                        <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">${q.q}</p>
+                        ${q.opts.map((opt, optIdx) => `
+                            <div class="quiz-option" onclick="selectSimuladoOpt(${i}, ${optIdx})">${opt}</div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            html += `<button class="btn btn-primary" onclick="submitSimulado()" style="width: 100%; margin-top: 20px;">Finalizar Simulado 🚀</button>`;
+            document.getElementById('simulado-quiz-body').innerHTML = html;
+            document.getElementById('simulado-quiz-body').style.display = 'block';
+        }
+
+        function selectSimuladoOpt(qIdx, optIdx) {
+            state.simuladoAnswers[qIdx] = optIdx;
+            const container = document.getElementById(`sim-q-${qIdx}`);
+            const opts = container.querySelectorAll('.quiz-option');
+            opts.forEach((op, idx) => {
+                op.style.border = idx === optIdx ? '2px solid var(--primary-purple)' : '2px solid #e2e8f0';
+                op.style.background = idx === optIdx ? '#f3e5f5' : 'white';
+            });
+        }
+
+        function submitSimulado() {
+            let correct = 0;
+            let detailsHtml = '<h4>Explicações e Gabarito:</h4><br>';
+
+            simuladoQuestions.forEach((q, i) => {
+                const userAns = state.simuladoAnswers[i];
+                const isCorrect = userAns === q.ans;
+                if (isCorrect) correct++;
+
+                detailsHtml += `
+                    <div style="margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                        <strong>Q${i+1}: ${isCorrect ? '✅ Acertou' : '❌ Errou'}</strong><br>
+                        <small>Sua resposta: ${userAns !== undefined ? q.opts[userAns] : 'Não respondida'} | <strong>Gabarito: ${q.opts[q.ans]}</strong></small><br>
+                        <span style="color:#555; font-size:0.9rem;">${q.exp}</span>
+                    </div>
+                `;
+            });
+
+            const scoreNote = ((correct / 20) * 10).toFixed(1);
+            const pct = Math.round((correct / 20) * 100);
+
+            // Recompensas
+            addXP(correct * 15);
+            if (scoreNote >= 8.0) {
+                unlockBadge('badge-simulado');
+                saveStorage();
+            }
+
+            document.getElementById('simulado-quiz-body').style.display = 'none';
+            document.getElementById('simulado-score-display').innerText = `${correct}/20`;
+            document.getElementById('simulado-feedback-text').innerHTML = `Sua nota foi <strong>${scoreNote}</strong> / 10 (${pct}% de aproveitamento).<br>+${correct * 15} XP conquistados!`;
+            document.getElementById('simulado-details').innerHTML = detailsHtml;
+            document.getElementById('simulado-result').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // Inicialização
+        window.onload = function() {
+            loadStorage();
+        };
+    </script>
+</body>
+</html>
